@@ -8,43 +8,54 @@
                  WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <ui:NavigationView x:Name="RootNavigation"
-                           PaneDisplayMode="Left"
+        <ui:NavigationView PaneDisplayMode="Left"
                            IsBackButtonVisible="Collapsed"
                            IsSettingsVisible="False">
 
             <!-- MENU -->
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="{loc:Loc Key=Nav_Dashboard}"
+                <ui:NavigationViewItem Content="{loc:Loc Nav_Dashboard}"
                                        Icon="{ui:SymbolIcon Home24}"
-                                       Tag="Dashboard"/>
-                <ui:NavigationViewItem Content="{loc:Loc Key=Nav_Documents}"
+                                       Command="{Binding NavigateDashboardCommand}" />
+
+                <ui:NavigationViewItem Content="{loc:Loc Nav_Documents}"
                                        Icon="{ui:SymbolIcon Document24}"
-                                       Tag="Documents"/>
+                                       Command="{Binding NavigateDocumentsCommand}" />
             </ui:NavigationView.MenuItems>
 
-            <!-- FOOTER: theme + language -->
+            <!-- FOOTER -->
             <ui:NavigationView.FooterMenuItems>
+
+                <ui:NavigationViewItem Content="{loc:Loc Nav_Settings}"
+                                       Icon="{ui:SymbolIcon Settings24}"
+                                       Command="{Binding NavigateSettingsCommand}" />
+
+                <ui:NavigationViewItem Content="{loc:Loc Nav_About}"
+                                       Icon="{ui:SymbolIcon Info24}"
+                                       Command="{Binding NavigateAboutCommand}" />
+
+                <!-- Theme toggle -->
                 <ui:NavigationViewItem>
                     <ui:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Margin="8,0">
                             <TextBlock VerticalAlignment="Center"
                                        Margin="0,0,8,0"
-                                       Text="{loc:Loc Key=Theme_Label}"/>
+                                       Text="{loc:Loc Theme_Label}"/>
 
                             <ToggleButton Width="140"
-                                          Content="{loc:Loc Key=Theme_Toggle}"
+                                          Content="{loc:Loc Theme_Toggle}"
                                           IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
                         </StackPanel>
                     </ui:NavigationViewItem.Content>
                 </ui:NavigationViewItem>
 
+                <!-- Language -->
                 <ui:NavigationViewItem>
                     <ui:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Margin="8,0">
                             <TextBlock VerticalAlignment="Center"
                                        Margin="0,0,8,0"
-                                       Text="{loc:Loc Key=Language_Label}"/>
+                                       Text="{loc:Loc Language_Label}"/>
 
                             <ComboBox Width="140"
                                       SelectedValuePath="Tag"
@@ -55,10 +66,13 @@
                         </StackPanel>
                     </ui:NavigationViewItem.Content>
                 </ui:NavigationViewItem>
+
             </ui:NavigationView.FooterMenuItems>
 
-            <!-- CONTENT -->
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+            <!-- CONTENT (показує CurrentViewModel через DataTemplates з App.xaml) -->
+            <Border Padding="16">
+                <ContentControl Content="{Binding Navigation.CurrentViewModel}" />
+            </Border>
 
         </ui:NavigationView>
     </Grid>

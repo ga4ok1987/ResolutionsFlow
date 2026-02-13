@@ -8,12 +8,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Presentation\Pages\" />
-    <Folder Include="Presentation\Resources\Themes\" />
-  </ItemGroup>
+  
 
-  <ItemGroup>
+	
+
+	<ItemGroup>
     <Compile Update="Presentation\Resources\Localization\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

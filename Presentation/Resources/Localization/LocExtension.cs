@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Globalization;
+using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace ResolutionsFlow.Presentation.Resources.Localization
+namespace ResolutionsFlow.Presentation.Resources.Localization;
+
+[MarkupExtensionReturnType(typeof(object))]
+public sealed class LocExtension : MarkupExtension
 {
-    [MarkupExtensionReturnType(typeof(string))]
-    public sealed class LocExtension : MarkupExtension
+    public string Key { get; set; } = "";
+
+    public LocExtension() { }
+    public LocExtension(string key) => Key = key;
+
+    public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        public string Key { get; set; } = "";
+        if (string.IsNullOrWhiteSpace(Key))
+            return string.Empty;
 
-        public LocExtension() { }
-        public LocExtension(string key) => Key = key;
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
+        return new Binding($"[{Key}]")
         {
-            if (string.IsNullOrWhiteSpace(Key))
-                return string.Empty;
-
-            return Strings.ResourceManager.GetString(Key, CultureInfo.CurrentUICulture)
-                   ?? $"!{Key}!";
-        }
+            Source = System.Windows.Application.Current.Resources["Loc"],
+            Mode = BindingMode.OneWay
+        };
     }
 }
