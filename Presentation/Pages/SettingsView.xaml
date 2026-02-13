@@ -1,0 +1,21 @@
+<UserControl x:Class="ResolutionsFlow.Presentation.Pages.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel MaxWidth="520">
+        <TextBlock Text="{DynamicResource Settings_Title}" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,18"/>
+
+        <TextBlock Text="{DynamicResource Settings_Theme}" Margin="0,0,0,6"/>
+        <ComboBox ItemsSource="{Binding Themes}"
+                  SelectedItem="{Binding SelectedTheme}"
+                  Margin="0,0,0,18"/>
+
+        <TextBlock Text="{DynamicResource Settings_Language}" Margin="0,0,0,6"/>
+        <ComboBox ItemsSource="{Binding Languages}"
+                  SelectedItem="{Binding SelectedLanguage}"
+                  Margin="0,0,0,18"/>
+
+        <Button Content="Reset"
+                Command="{Binding ResetToDefaultsCommand}"
+                HorizontalAlignment="Left"/>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,14 @@
+<UserControl x:Class="ResolutionsFlow.Presentation.Pages.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:ResolutionsFlow.Presentation.Resources.Localization">
+	<StackPanel>
+		<TextBlock Text="{loc:Loc Nav_Dashboard}"
+                   FontSize="22"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,12"/>
+
+		<TextBlock Text="{loc:Loc Dashboard_EmptyHint}"
+                   Opacity="0.75"/>
+	</StackPanel>
+</UserControl>
