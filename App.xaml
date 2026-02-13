@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:markup="clr-namespace:Wpf.Ui.Markup;assembly=Wpf.Ui"
              xmlns:pvm="clr-namespace:ResolutionsFlow.Presentation.ViewModels.Pages"
-             xmlns:v="clr-namespace:ResolutionsFlow.Presentation.Pages"
-             xmlns:loc="clr-namespace:ResolutionsFlow.Presentation.Resources.Localization">
+             xmlns:v="clr-namespace:ResolutionsFlow.Presentation.Pages">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -13,8 +12,7 @@
                 <markup:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
 
-            <loc:LocalizationProvider x:Key="Loc" />
-
+            <!-- VM -> View -->
             <DataTemplate DataType="{x:Type pvm:DashboardViewModel}">
                 <v:DashboardView />
             </DataTemplate>

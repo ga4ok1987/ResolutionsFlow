@@ -1,8 +1,7 @@
-﻿namespace ResolutionsFlow.Application.Interfaces
+﻿namespace ResolutionsFlow.Application.Interfaces;
+
+public interface INavigationService
 {
-    public interface INavigationService
-    {
-        object CurrentViewModel { get; }
-        void NavigateTo<TViewModel>() where TViewModel : class;
-    }
+    object CurrentViewModel { get; }
+    void NavigateTo<TViewModel>() where TViewModel : class;
 }

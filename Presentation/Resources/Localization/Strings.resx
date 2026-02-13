@@ -130,16 +130,16 @@
     <value />
   </data>
   <data name="Nav_Dashboard" xml:space="preserve">
-    <value />
+    <value>Головна</value>
   </data>
   <data name="Nav_Documents" xml:space="preserve">
-    <value />
+    <value>Документи</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value />
+    <value>Налаштування</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value />
+    <value>Мова</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value />

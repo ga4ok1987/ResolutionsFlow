@@ -1,71 +1,73 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ResolutionsFlow.Application.Interfaces;
-using ResolutionsFlow.Application.Services;
-using ResolutionsFlow.Infrastructure.Services;
+using ResolutionsFlow.Presentation.Resources.Localization;
 using ResolutionsFlow.Presentation.Services;
 using ResolutionsFlow.Presentation.ViewModels;
 using ResolutionsFlow.Presentation.ViewModels.Pages;
 using ResolutionsFlow.Presentation.Views;
-using Wpf.Ui.Controls;
+using ResolutionsFlow.Application.Interfaces;
+using ResolutionsFlow.Infrastructure.Services;
+
 
 namespace ResolutionsFlow;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
-    private IHost? _host;
+    private ServiceProvider? _services;
 
-    protected override async void OnStartup(StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        _host = Host.CreateDefaultBuilder()
-            .ConfigureServices(services =>
-            {
-                // Window
-                services.AddSingleton<ShellWindow>();
-                services.AddSingleton<IWindow>(sp => sp.GetRequiredService<ShellWindow>());
+        var services = new ServiceCollection();
 
-                // Navigation (твоя реалізація)
-                services.AddSingleton<INavigationService, NavigationService>();
+        // Navigation (твоя реалізація)
+        services.AddSingleton<ResolutionsFlow.Application.Interfaces.INavigationService,
+                              ResolutionsFlow.Presentation.Services.NavigationService>();
 
-                // Services (з твого репо)
-                services.AddSingleton<ISettingsService, SettingsService>();
-                services.AddSingleton<IThemeService, ThemeService>();
-                services.AddSingleton<ILocalizationService, LocalizationService>();
+        // ViewModels
+        services.AddSingleton<ShellViewModel>();
+        services.AddSingleton<DashboardViewModel>();
+        services.AddSingleton<DocumentsViewModel>();
+        services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<AboutViewModel>();
 
-                // Shell VM
-                services.AddSingleton<ShellViewModel>();
+        // Window
+        services.AddSingleton<ShellWindow>();
 
-                // Page VMs (VM-навігація)
-                services.AddSingleton<DashboardViewModel>();
-                services.AddSingleton<DocumentsViewModel>();
-                services.AddSingleton<SettingsViewModel>();
-                services.AddSingleton<AboutViewModel>();
-            })
-            .Build();
 
-        await _host.StartAsync();
 
-        // ВАЖЛИВО: завантажити settings до показу вікна, щоб тема/мова застосувались одразу
-        var settings = _host.Services.GetRequiredService<ISettingsService>();
-        await settings.LoadAsync();
+        services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<ILocalizationService, LocalizationService>();
 
-        // Показати Shell
-        var window = _host.Services.GetRequiredService<IWindow>();
-        window.Show();
-    }
+        services.AddSingleton<INavigationService, NavigationService>();
 
-    protected override async void OnExit(ExitEventArgs e)
-    {
-        if (_host is not null)
+
+
+        _services = services.BuildServiceProvider();
+
+        // Локалізаційний ресурс краще додати програмно (щоб XAML-дизайнер не дурив)
+        Resources["Loc"] = new LocalizationProvider();
+
+        try
         {
-            await _host.StopAsync(TimeSpan.FromSeconds(2));
-            _host.Dispose();
+            var window = _services.GetRequiredService<ShellWindow>();
+            window.Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.ToString(), "DI error");
+            throw;
         }
 
+
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        _services?.Dispose();
         base.OnExit(e);
     }
 }

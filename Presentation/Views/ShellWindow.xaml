@@ -5,75 +5,35 @@
                  xmlns:loc="clr-namespace:ResolutionsFlow.Presentation.Resources.Localization"
                  Title="ResolutionsFlow"
                  Width="1200" Height="760"
-                 WindowStartupLocation="CenterScreen">
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="CanResize"
+                 MinWidth="1100"
+                 MinHeight="700">
 
-    <Grid>
-        <ui:NavigationView PaneDisplayMode="Left"
-                           IsBackButtonVisible="Collapsed"
-                           IsSettingsVisible="False">
 
-            <!-- MENU -->
-            <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="{loc:Loc Nav_Dashboard}"
-                                       Icon="{ui:SymbolIcon Home24}"
-                                       Command="{Binding NavigateDashboardCommand}" />
+    <ui:NavigationView x:Name="RootNavigation"
+                       PaneDisplayMode="Left"
+                       IsBackButtonVisible="Collapsed">
 
-                <ui:NavigationViewItem Content="{loc:Loc Nav_Documents}"
-                                       Icon="{ui:SymbolIcon Document24}"
-                                       Command="{Binding NavigateDocumentsCommand}" />
-            </ui:NavigationView.MenuItems>
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem Content="{loc:Loc Nav_Dashboard}"
+                                   Icon="{ui:SymbolIcon Home24}"
+                                   Command="{Binding NavigateDashboardCommand}" />
 
-            <!-- FOOTER -->
-            <ui:NavigationView.FooterMenuItems>
+            <ui:NavigationViewItem Content="{loc:Loc Nav_Documents}"
+                                   Icon="{ui:SymbolIcon Document24}"
+                                   Command="{Binding NavigateDocumentsCommand}" />
+        </ui:NavigationView.MenuItems>
 
-                <ui:NavigationViewItem Content="{loc:Loc Nav_Settings}"
-                                       Icon="{ui:SymbolIcon Settings24}"
-                                       Command="{Binding NavigateSettingsCommand}" />
+        <ui:NavigationView.FooterMenuItems>
+            <ui:NavigationViewItem Content="{loc:Loc Nav_Settings}"
+                                   Icon="{ui:SymbolIcon Settings24}"
+                                   Command="{Binding NavigateSettingsCommand}" />
 
-                <ui:NavigationViewItem Content="{loc:Loc Nav_About}"
-                                       Icon="{ui:SymbolIcon Info24}"
-                                       Command="{Binding NavigateAboutCommand}" />
+            <ui:NavigationViewItem Content="{loc:Loc Nav_About}"
+                                   Icon="{ui:SymbolIcon Info24}"
+                                   Command="{Binding NavigateAboutCommand}" />
+        </ui:NavigationView.FooterMenuItems>
 
-                <!-- Theme toggle -->
-                <ui:NavigationViewItem>
-                    <ui:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Margin="8,0">
-                            <TextBlock VerticalAlignment="Center"
-                                       Margin="0,0,8,0"
-                                       Text="{loc:Loc Theme_Label}"/>
-
-                            <ToggleButton Width="140"
-                                          Content="{loc:Loc Theme_Toggle}"
-                                          IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
-                        </StackPanel>
-                    </ui:NavigationViewItem.Content>
-                </ui:NavigationViewItem>
-
-                <!-- Language -->
-                <ui:NavigationViewItem>
-                    <ui:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Margin="8,0">
-                            <TextBlock VerticalAlignment="Center"
-                                       Margin="0,0,8,0"
-                                       Text="{loc:Loc Language_Label}"/>
-
-                            <ComboBox Width="140"
-                                      SelectedValuePath="Tag"
-                                      SelectedValue="{Binding SelectedCulture, Mode=TwoWay}">
-                                <ComboBoxItem Content="Українська" Tag="uk-UA"/>
-                                <ComboBoxItem Content="English" Tag="en-US"/>
-                            </ComboBox>
-                        </StackPanel>
-                    </ui:NavigationViewItem.Content>
-                </ui:NavigationViewItem>
-
-            </ui:NavigationView.FooterMenuItems>
-
-            <!-- CONTENT (показує CurrentViewModel через DataTemplates з App.xaml) -->
-            <Border Padding="16">
-                <ContentControl Content="{Binding Navigation.CurrentViewModel}" />
-            </Border>
-
-        </ui:NavigationView>
-    </Grid>
+    </ui:NavigationView>
 </ui:FluentWindow>

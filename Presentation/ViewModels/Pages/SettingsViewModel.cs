@@ -50,6 +50,8 @@ namespace ResolutionsFlow.Presentation.ViewModels.Pages
 
             _selectedTheme = _settings.Current.Theme;
             _selectedLanguage = _settings.Current.Language;
+            ResetToDefaultsCommand = new RelayCommand(ResetToDefaults);
+
         }
 
         private async Task ApplyThemeAsync(AppTheme theme)

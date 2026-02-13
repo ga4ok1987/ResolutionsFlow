@@ -1,9 +1,10 @@
-﻿using System.Windows.Input;
-using ResolutionsFlow.Application.Interfaces;
+﻿using ResolutionsFlow.Application.Interfaces;
 using ResolutionsFlow.Application.Models;
 using ResolutionsFlow.Common.MVVM;
 using ResolutionsFlow.Infrastructure.Paths;
+using ResolutionsFlow.Presentation.Resources.Localization;
 using ResolutionsFlow.Presentation.ViewModels.Pages;
+using System.Windows.Input;
 
 namespace ResolutionsFlow.Presentation.ViewModels;
 
@@ -47,12 +48,13 @@ public sealed class ShellViewModel : ObservableObject
             if (!SetProperty(ref _selectedCulture, value))
                 return;
 
-            var newLang = _selectedCulture == "uk-UA" ? AppLanguage.Uk : AppLanguage.En;
+            var newLang = _selectedCulture == "uk-UA" ? AppLanguage.UkUA : AppLanguage.EnUS;
             _settings.Current.Language = newLang;
             _loc.Apply(newLang);
 
             // важливо: тригеримо оновлення локалізованих рядків у UI
-            Resources.Localization.LocalizationProvider.NotifyCultureChanged();
+            LocalizationProvider.NotifyCultureChanged();
+
 
             _ = _settings.SaveAsync();
         }
@@ -76,6 +78,13 @@ public sealed class ShellViewModel : ObservableObject
 
         // ініціалізація значень з settings (після LoadAsync це буде актуально)
         _isDarkTheme = settings.Current.Theme == AppTheme.Dark;
-        _selectedCulture = settings.Current.Language == AppLanguage.Uk ? "uk-UA" : "en-US";
+        _selectedCulture = settings.Current.Language == AppLanguage.UkUA ? "uk-UA" : "en-US";
     }
+
+    public void InitializeFromSettings()
+    {
+        IsDarkTheme = _settings.Current.Theme == AppTheme.Dark;
+        SelectedCulture = _settings.Current.Language == AppLanguage.UkUA ? "uk-UA" : "en-US";
+    }
+
 }

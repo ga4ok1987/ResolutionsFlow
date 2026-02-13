@@ -97,7 +97,7 @@ namespace ResolutionsFlow.Presentation.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Головна.
         /// </summary>
         internal static string Nav_Dashboard {
             get {
@@ -106,7 +106,7 @@ namespace ResolutionsFlow.Presentation.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Документи.
         /// </summary>
         internal static string Nav_Documents {
             get {
@@ -115,7 +115,7 @@ namespace ResolutionsFlow.Presentation.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Налаштування.
         /// </summary>
         internal static string Nav_Settings {
             get {
@@ -124,7 +124,7 @@ namespace ResolutionsFlow.Presentation.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Мова.
         /// </summary>
         internal static string Settings_Language {
             get {
